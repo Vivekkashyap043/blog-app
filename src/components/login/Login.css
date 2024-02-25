@@ -1,0 +1,36 @@
+.inner{
+    border: 1px solid rgb(96, 94, 94);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border-radius: 5%;
+    background-color: #F8F9F9;
+}
+
+.user{
+    padding-right: 10px ;
+    font-size: large;
+    margin-top: 10px;
+}
+.username{
+    padding-top: 10px;
+    margin: auto;
+}
+
+.input1{
+    width: 100%;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.password{
+    margin:auto;
+    margin-top: 15px;
+}
+
+p{
+    text-align: center;
+    margin-bottom: 0;
+}
+
+button{
+    margin-top: 10px;
+}
