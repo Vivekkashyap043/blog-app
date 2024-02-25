@@ -1,0 +1,30 @@
+###
+POST http://localhost:4000/user-api/user
+Content-Type: application/json
+
+{
+    "userType": "user",
+    "username": "vivek",
+    "password": "vivek",
+    "email": "vivek@gmail.com"
+}
+
+
+###
+POST http://localhost:4000/user-api/login
+Content-Type: application/json
+
+{
+    "userType": "user",
+    "username": "vivek",
+    "password": "vivek",
+    "email": "vivek@gmail.com"
+}
+
+
+###
+GET http://localhost:4000/user-api/user1
+###
+GET http://localhost:4000/admin-api/test-admin
+###
+GET http://localhost:4000/author-api/test-author
