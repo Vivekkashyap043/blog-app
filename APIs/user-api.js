@@ -4,11 +4,14 @@ const bcryptjs = require('bcryptjs');
 const userApp = exp.Router()
 const expressAsyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
+const verifyToken = require('../Middlewares/verifyToken')
 
-//get userscollections app
+//get userscollections and articlescollection document
 let userscollection;
+let articlescollection;
 userApp.use((req, res, next)=>{
     userscollection = req.app.get('userscollection')
+    articlescollection = req.app.get('articlescollection')
     next();
 })
 
@@ -22,7 +25,7 @@ userApp.post('/user',  expressAsyncHandler(async(req,res)=>{
     if(dbuser!==null){
         res.send({message:"user already exist"})
     }else{
-        console.log('new user')
+       // console.log('new user')
         const hashedPassword = await bcryptjs.hash(newUser.password, 6);
         newUser.password=hashedPassword;
         await userscollection.insertOne(newUser)
@@ -44,19 +47,28 @@ userApp.post('/login', expressAsyncHandler( async (req, res) =>{
             res.send({message:"incorrect password"})
         }else{
             //c reating token
-            const signedToken = jwt.sign({username: user.username}, process.env.SECRET_KEY,{expiresIn: 50})
-            res.send({message:"Login successfull", token:signedToken, user:existedUser})
+            const signedToken = jwt.sign({username: user.username}, process.env.SECRET_KEY,{expiresIn: "1d"})
+            res.send({message:"Login success", token:signedToken, user: existedUser})
         }
     }
 }))
 
-//get articles of all users
-userApp.get('/articles',  expressAsyncHandler(async(req, res) =>{
+//get articles of all author
+userApp.get('/articles', verifyToken, expressAsyncHandler(async(req, res) =>{
     //geting articlescollection from express app
     const articlescollection = req.app.get('articlescollection')
     //geting all articles from database
-    const articlesList = await articlescollection.find().toArray();
+    const articlesList = await articlescollection.find({status:"true"}).toArray();
     res.send({message:"articles",payload:articlesList})
+}))
+
+//comment
+userApp.post('/comment/:id', verifyToken, expressAsyncHandler( async (req, res) =>{
+    const newComment = req.body;
+    const id = req.params.id
+    const result = await articlescollection.updateOne({articleId: id}, {$addToSet : {comments : newComment}})
+    console.log(result)
+    res.send({message:"Comment posted"})
 }))
 
 module.exports=userApp

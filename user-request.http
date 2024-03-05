@@ -1,4 +1,4 @@
-###
+### user registration
 POST http://localhost:4000/user-api/user
 Content-Type: application/json
 
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 
-###
+### user login
 POST http://localhost:4000/user-api/login
 Content-Type: application/json
 
@@ -22,9 +22,15 @@ Content-Type: application/json
 }
 
 
-###
-GET http://localhost:4000/user-api/user1
-###
-GET http://localhost:4000/admin-api/test-admin
-###
-GET http://localhost:4000/author-api/test-author
+###  get articles
+GET http://localhost:4000/user-api/articles
+
+
+### comment
+POST http://localhost:4000/user-api/comment/1709439995
+Content-Type: application/json
+
+{
+    "username": "vivek",
+    "comment": "Amazing fantastic post"
+}
