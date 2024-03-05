@@ -7,7 +7,9 @@ function Root() {
   return (
     <div>
       <Header/>
-      <Outlet />
+      <div style={{minHeight:'81.1vh'}}>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   )

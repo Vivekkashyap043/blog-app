@@ -1,34 +1,53 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import './Login.css'
+import {useDispatch, useSelector} from 'react-redux'
+import { userAuthorLoginThunk } from '../../redux/slices/userAuthorSlice'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
   let { register, handleSubmit, formState: { errors }} = useForm();
+  let {loginUserStatus, errorOccured, errMsg, currentUser} = useSelector(state => state.userAuthorLoginReducer)
+  let dispatch = useDispatch();
+  let navigate = useNavigate()
 
-  const onSignin = (data) => {
-    console.log(data); // You can handle form submission here
+  const onSignin = (userCred) => {
+    //console.log(userCred); 
+    dispatch(userAuthorLoginThunk(userCred))
   }
+
+  useEffect(() =>{
+    if(loginUserStatus===true){
+      if(currentUser.userType === "user"){
+        navigate('/user-profile')
+      }
+      if(currentUser.userType === "author"){
+        console.log("author login")
+        navigate('/author-profile')
+      }
+    }
+  }, [loginUserStatus])
 
   return (
     <div className='d-flex align-items-center justify-content-center' style={{minHeight:"81.1vh", background:"#566573"}}>
       <form onSubmit={handleSubmit(onSignin)}>
       <div className="m-5 p-5 w-30 inner">
             <h1 className="text-center text-danger font-weight-bold mb-3">
-                Sign in
+                Login
             </h1>
             <div className="d-flex justify-content-center">
               <div className='user'>
-              <input type="radio" className='user' name="usertype" id="usertype" value="author" {...register("usertype", { required: true })}/>
+              <input type="radio" className='user' name="userType" id="usertype" value="author" {...register("userType", { required: true })}/>
                 <label>Author</label>
               </div>
               <div className='user'>
-              <input type="radio" className='user' name="usertype" id="usertype" value="user" {...register("usertype", { required: true })}/>
+              <input type="radio" className='user' name="userType" id="usertype" value="user" {...register("userType", { required: true })}/>
                 <label>User</label>
               </div>
               <div className='user'>
-              <input type="radio" className='user' name="usertype" id="usertype" value="admin" {...register("usertype", { required: true })}/>
+              <input type="radio" className='user' name="userType" id="usertype" value="admin" {...register("userType", { required: true })}/>
                 <label>Admin</label>
               </div>
             </div>
@@ -57,7 +76,7 @@ function Login() {
                 </div>
             </div>
             <div className="row p-3">
-                <p>Don't have account? <Link to="/signin">Register</Link></p>
+                <p>Don't have account? <Link to="/register">Register</Link></p>
             </div>
         </div>
       </form>

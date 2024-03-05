@@ -1,30 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import '../login/Login.css'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
 
   let { register, handleSubmit, formState: { errors }} = useForm();
+  let navigate = useNavigate()
+  let [err, setErr] = useState('')
 
-  const onSignup = (data) => {
-    console.log(data); // You can handle form submission here
+  const onLogin = async (userObj) => {
+    if (userObj.userType === "user") {
+      let res = await axios.post('http://localhost:4000/user-api/user', userObj)
+      if (res.data.message === "user created") {
+        navigate('/login')
+      } else {
+        setErr(res.data.message)
+      }
+    } else {
+      let res = await axios.post('http://localhost:4000/author-api/author', userObj)
+      if (res.data.message === "Author created") {
+        navigate('/login')
+      } else {
+        setErr(res.data.message)
+      }
+    }
   }
 
   return (
     <div className='d-flex align-items-center justify-content-center' style={{minHeight:"81.1vh", background:"#566573"}}>
-      <form onSubmit={handleSubmit(onSignup)}>
+      <form onSubmit={handleSubmit(onLogin)}>
       <div className="m-5 p-5 w-30 inner">
             <h1 className="text-center text-danger font-weight-bold mb-3">
-                Sign up
+                Register
             </h1>
+            {
+              err.length!==0&& <p className='text-danger text-center'>{err}</p>
+            }
             <div className="d-flex justify-content-center">
               <div className='user'>
-              <input type="radio" className='user' name="usertype" id="usertype" value="author" {...register("usertype", { required: true })}/>
+              <input type="radio" className='user' name="userType" id="userType" value="author" {...register("userType", { required: true })}/>
                 <label>Author</label>
               </div>
               <div className='user'>
-              <input type="radio" className='user' name="usertype" id="usertype" value="user" {...register("usertype", { required: true })}/>
+              <input type="radio" className='user' name="userType" id="userType" value="user" {...register("userType", { required: true })}/>
                 <label>User</label>
               </div>
             </div>
@@ -64,7 +85,7 @@ function Register() {
                 </div>
             </div>
             <div className="row p-3">
-                <p>Already have account? <Link to="/signin">Login</Link></p>
+                <p>Already have account? <Link to="/login">Login</Link></p>
             </div>
         </div>
       </form>
