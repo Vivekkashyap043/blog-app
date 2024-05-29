@@ -1,0 +1,32 @@
+.homeimg{
+    border-radius: 5%;
+    width: 40%;
+    height: 80%;
+    margin-top: 50px;
+    margin-left: 30px;
+    border: 2px solid black;
+}
+
+.main{
+    display: flex;
+    min-height: 40rem;
+}
+
+.right{
+    margin: 50px;
+    justify-content: center;
+}
+
+.art{
+    font-weight: 900;
+    font-family: Montserrat,sans-serif;
+    font-size: 60px;
+    margin-top: 50px;
+    margin-left: 180px;
+}
+
+.p1{
+    font-size: 18px;
+    font-family: Source serif pro;
+    margin-top: 20px;
+}
