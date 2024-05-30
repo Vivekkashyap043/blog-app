@@ -34,6 +34,7 @@ function Article() {
     if(res.data.message==='article deleted'){
       setCurrentArticle({...currentArticle,status:res.data.payload})
     }
+    navigate(`/author-profile/articles-by-author/${currentUser.username}`)
   };
 
   const restoreArticle =async () => {

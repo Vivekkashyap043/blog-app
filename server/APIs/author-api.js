@@ -120,7 +120,7 @@ authorApp.get('/articles/:username',verifyToken,expressAsyncHandler(async(req,re
     //get author's username from url
     const authorName=req.params.username;
     //get atricles whose status is true
-    const artclesList=await articlescollection.find({username:authorName}).toArray()
+    const artclesList=await articlescollection.find({username:authorName, status: true}).toArray()
     res.send({message:"List of atricles",payload:artclesList})
 
 }))

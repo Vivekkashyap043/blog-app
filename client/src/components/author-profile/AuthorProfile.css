@@ -1,5 +1,48 @@
-.author-profile ul .active {
-  color: var(--light-grey) !important;
-  background-color: var(--light-dark-grey);
-  border-radius: 5px;
+.author-profile {
+  background-color: #f8f9fa; /* Light background for the profile section */
+  border-radius: 12px; /* Rounded corners for the profile section */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  padding: 20px; /* Padding inside the profile section */
+  margin-top: 20px; /* Margin at the top */
+}
+
+.custom-nav {
+  background: linear-gradient(90deg, #e9ecef, #f8f9fa); /* Gradient background for the nav */
+  border-radius: 12px; /* Rounded corners for the nav */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for the nav */
+  padding: 10px 20px; /* Padding around the nav */
+}
+
+.custom-nav .nav-item {
+  margin: 0 10px; /* Space between nav items */
+}
+
+.custom-link {
+  color: black; /* Default text color */
+  text-decoration: none; /* Remove underline */
+  padding: 10px 20px; /* Padding for clickable area */
+  border-radius: 8px; /* Rounded corners for links */
+  transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+  font-weight: bold; /* Bold text */
+  font-family: 'Arial', sans-serif; /* Font family */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-link p {
+  margin: 0; /* Remove margin from <p> */
+  font-size: 1.2em; /* Adjust font size */
+}
+
+.custom-link:hover {
+  background-color: #007bff; /* Background color on hover */
+  color: white; /* Text color on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.custom-link.active {
+  background-color: #007bff; /* Background color for active link */
+  color: white; /* Text color for active link */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for active link */
 }
